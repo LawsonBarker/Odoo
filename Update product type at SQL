@@ -1,0 +1,26 @@
+# Use this to update product type, use the id of product template i.e product not product variant (the main product, not the product variant) when updating the type
+
+# Change product code to suit, if more that one, seperate with a comma, i.e.  44410,58845,55896
+prod_code = 55436   
+
+# Change type to suit    product  |  consu   | service
+prod_type = 'consu'
+
+
+
+#### Don't change anything below here  ##########
+products = env['product.template'].browse([prod_code])
+for product in products:
+    if product.type == 'product':
+        for variant in product.product_variant_ids:
+            quants = env['stock.quant'].search([('product_id', '=', variant.id)])
+            for quant in quants:
+                quant.write({'quantity': 0})
+
+    # Perform raw SQL update
+    query = """
+        UPDATE product_template
+        SET type = %s, detailed_type = %s
+        WHERE id = %s
+    """
+    env.cr.execute(query, (prod_type, prod_type, prod_code))
