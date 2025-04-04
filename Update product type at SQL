@@ -1,6 +1,7 @@
+#This should only be used on rare occasions 
 # Use this to update product type, use the id of product template i.e product not product variant (the main product, not the product variant) when updating the type
 
-# Change product code to suit, if more that one, seperate with a comma, i.e.  44410,58845,55896
+# Change product code to suit, if more than one, separate with a comma, i.e.  44410,58845,55896
 prod_code = 55436   
 
 # Change type to suit    product  |  consu   | service
